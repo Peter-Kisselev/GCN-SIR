@@ -9,23 +9,16 @@ class DataInput(object):
         self.data_split_ratio = data_split_ratio
 
     def load_data(self):
-        # PATH = 'mepoUS/Data/japanData/jp20200401_20210921.npy'
         PATH = 'mepoUS/Data/usData/us800.npy'
-        # PATH = 'mepoUS/Data/usData/us800-solo.npy'
-        # PATH = 'mepoUS/Data/countyDataClean/county800.npy'
         data = np.load(PATH, allow_pickle='TRUE').item()
 
         data_od = np.ones((len(data['node']), len(data['node'][0]), len(data['node'][0]), 1))
         data_node_inf = np.log(data['node'][...,[0]]+1.0)
-        # data_node_other = data['node'][...,[1,2,3]]
         data_node_other = data['node'][...,[1,2]]
         data_node = np.concatenate((data_node_inf,data_node_other),axis=-1)
         data_SIR = data['SIR']
         data_y = data['node'][...,[0]]
-        # PATH = 'mepoUS/Data/japanData/commute_jp.npy'
         PATH = 'mepoUS/Data/usData/commute_us.npy'
-        # PATH = 'mepoUS/Data/usData/commute_us-solo.npy'
-        # PATH = 'mepoUS/Data/countyDataClean/commute_county.npy'
         commute = np.load(PATH)
 
         # return a dict
